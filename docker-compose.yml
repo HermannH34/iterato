@@ -1,0 +1,14 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=production
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE:-change-me-in-production}
+    volumes:
+      - sqlite_data:/app/storage
+    restart: unless-stopped
+
+volumes:
+  sqlite_data:

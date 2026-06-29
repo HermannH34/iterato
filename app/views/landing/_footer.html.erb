@@ -1,0 +1,13 @@
+<footer class="border-t border-white/5 bg-black py-12 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-2">
+      <a href="/" class="font-bold">Iterato</a>
+      <span class="text-white/30 text-sm">© <%= Time.now.year %></span>
+    </div>
+    <div class="flex gap-6 text-sm text-white/40">
+      <a href="#" class="hover:text-white transition-colors">Mentions légales</a>
+      <a href="#" class="hover:text-white transition-colors">Confidentialité</a>
+      <button data-action="click->page-modal#open" data-page-modal-name-param="post-need" class="hover:text-white transition-colors">Contact</button>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,28 @@
+# Rails
+log/*
+tmp/*
+storage/*
+db/*.sqlite3
+db/*.sqlite3-*
+*.log
+*.pid
+
+# Environment
+.env.local
+.env.production
+
+# Editor
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+
+# Node
+node_modules/
+yarn-error.log
+
+# Docker
+.dockerignore

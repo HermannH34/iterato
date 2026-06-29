@@ -1,0 +1,13 @@
+<section id="candidats" class="py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="font-bold mb-5 text-3xl md:text-4xl tracking-tight"><%= LandingContent::DATA[:candidates][:title] %></h2>
+      <p class="text-white/50 mb-8 leading-relaxed text-lg max-w-xl mx-auto">
+        <span class="text-[#FB923C] font-semibold"><%= LandingContent::DATA[:candidates][:subtitle] %></span> <%= LandingContent::DATA[:candidates][:body] %>
+      </p>
+      <div class="flex justify-center">
+        <button data-action="click->page-modal#open" data-page-modal-name-param="join-community" class="px-6 py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm"><%= LandingContent::DATA[:candidates][:cta] %></button>
+      </div>
+    </div>
+  </div>
+</section>

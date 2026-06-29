@@ -1,0 +1,18 @@
+<section id="faq" class="py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-[#FB923C] text-2xl md:text-3xl font-bold tracking-tight mb-4"><%= LandingContent::DATA[:faq][:tagline] %></h2>
+  </div>
+  <div class="max-w-2xl mx-auto space-y-3" data-controller="accordion-group">
+    <% LandingContent::DATA[:faq][:items].each do |item| %>
+      <div class="rounded-xl border border-[#FB923C]/30 overflow-hidden transition-colors" data-controller="accordion" data-accordion-group-target="item">
+        <button data-action="click->accordion#toggle" class="w-full flex items-center gap-4 p-5 text-left hover:bg-white/[0.02] transition-colors">
+          <span class="font-semibold flex-1"><%= item[:q] %></span>
+          <svg data-accordion-target="chevron" class="w-5 h-5 text-[#FB923C] transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+        </button>
+        <div data-accordion-target="content" class="px-5 pb-5 pl-[68px] hidden">
+          <p class="text-white/50 leading-relaxed text-sm"><%= item[:a] %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

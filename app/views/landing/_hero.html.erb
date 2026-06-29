@@ -1,0 +1,15 @@
+<section class="py-20 md:py-28 px-6">
+  <div class="flex flex-col items-center text-center gap-8 max-w-4xl mx-auto">
+    <h1 class="text-xs font-medium tracking-wide uppercase text-white/30 mb-4"><%= LandingContent::DATA[:hero][:label] %></h1>
+    <h2 class="font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.05]">
+      <%= LandingContent::DATA[:hero][:headline_part1] %>
+      <br>
+      <span class="text-[#FB923C]"><%= LandingContent::DATA[:hero][:headline_part2] %></span>
+    </h2>
+    <p class="text-white/50 max-w-2xl leading-relaxed text-lg"><%= LandingContent::DATA[:hero][:subtitle] %></p>
+    <div class="flex flex-col sm:flex-row gap-3 pt-4">
+      <button data-action="click->page-modal#open" data-page-modal-name-param="post-need" class="px-6 py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm"><%= LandingContent::DATA[:hero][:cta_primary] %></button>
+      <button data-action="click->page-modal#open" data-page-modal-name-param="join-community" class="px-6 py-3 rounded-lg border border-[#FB923C]/30 text-[#FB923C] font-medium hover:bg-[#FB923C]/20 transition-colors text-sm"><%= LandingContent::DATA[:hero][:cta_secondary] %></button>
+    </div>
+  </div>
+</section>

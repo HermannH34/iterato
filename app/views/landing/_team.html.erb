@@ -1,0 +1,16 @@
+<section id="team" class="py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-[#FB923C] text-2xl md:text-3xl font-bold tracking-tight mb-4">L'équipe</h2>
+    <p class="text-white/70 max-w-xl leading-relaxed mb-16 text-xl mx-auto"><%= LandingContent::DATA[:team][:tagline] %></p>
+    <div class="max-w-2xl mx-auto">
+      <% LandingContent::DATA[:team][:members].each do |m| %>
+        <div class="text-center mb-10">
+          <div class="w-24 h-24 rounded-full bg-[#FB923C]/10 border-2 border-[#FB923C]/30 flex items-center justify-center mx-auto font-bold text-[#FB923C] text-3xl shrink-0"><%= m[:initial] %></div>
+          <h3 class="text-2xl font-bold mt-5 mb-1"><%= m[:name] %></h3>
+          <p class="text-[#FB923C] font-semibold mb-4"><%= m[:role] %></p>
+          <p class="text-white/50 leading-relaxed max-w-lg mx-auto"><%= m[:bio] %></p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

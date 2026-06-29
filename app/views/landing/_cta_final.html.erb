@@ -1,0 +1,12 @@
+<section class="py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="font-bold mb-5 text-4xl md:text-6xl tracking-tight leading-[1.1]"><%= LandingContent::DATA[:cta_final][:title] %></h2>
+      <p class="text-white/50 mb-8 leading-relaxed text-lg max-w-xl mx-auto"><%= LandingContent::DATA[:cta_final][:subtitle] %></p>
+      <div class="flex justify-center flex-col sm:flex-row items-center gap-3">
+        <button data-action="click->page-modal#open" data-page-modal-name-param="post-need" class="px-6 py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm"><%= LandingContent::DATA[:cta_final][:primary] %></button>
+      </div>
+      <p class="text-white/30 text-sm mt-5"><%= LandingContent::DATA[:cta_final][:mention] %></p>
+    </div>
+  </div>
+</section>

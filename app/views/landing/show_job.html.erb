@@ -1,0 +1,51 @@
+<div data-controller="page-modal" class="bg-black text-white min-h-screen">
+  <header class="border-b border-white/5 bg-black sticky top-0 z-40">
+    <nav class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="/" class="font-bold text-lg tracking-tight">Iterato</a>
+      <a href="/#jobs" class="text-sm text-white/50 hover:text-white transition-colors">← Retour aux postes</a>
+    </nav>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-6 py-16 md:py-24">
+    <div class="flex flex-wrap gap-2 mb-6">
+      <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FB923C]/10 text-[#FB923C] border border-[#FB923C]/30"><%= @job[:location] %></span>
+      <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FB923C]/10 text-[#FB923C] border border-[#FB923C]/30"><%= @job[:type] %></span>
+      <span class="px-3 py-1 rounded-full text-xs font-medium bg-[#FB923C]/10 text-[#FB923C] border border-[#FB923C]/30"><%= @job[:tag] %></span>
+    </div>
+
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight mb-10">
+      <%= @job[:title] %>
+      <span class="text-[#FB923C] text-lg block mt-1 font-medium"><%= @job[:location] %></span>
+    </h1>
+
+    <div class="space-y-10">
+      <% @job[:sections].each do |section| %>
+        <div>
+          <h2 class="text-lg font-bold mb-4 text-[#FB923C]"><%= section[:heading] %></h2>
+          <ul class="space-y-3">
+            <% section[:items].each do |item| %>
+              <li class="flex gap-3 text-white/70 leading-relaxed">
+                <span class="text-[#FB923C] shrink-0 mt-1">▸</span>
+                <span><%= item %></span>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-14 pt-10 border-t border-white/10">
+      <p class="text-lg text-white/80 mb-6 leading-relaxed"><%= @job[:footer] %></p>
+      <button data-action="click->page-modal#open" data-page-modal-name-param="join-community" class="inline-block px-6 py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm cursor-pointer">Postuler</button>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/5 bg-black py-12 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+      <a href="/" class="font-bold">Iterato</a>
+      <span class="text-white/30 text-sm ml-2">© <%= Time.now.year %></span>
+    </div>
+  </footer>
+
+  <%= render "landing/form_join_community" %>
+</div>

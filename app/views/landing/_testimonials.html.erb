@@ -1,0 +1,13 @@
+<section id="testimonials" class="py-20 md:py-28 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <h2 class="text-[#FB923C] text-2xl md:text-3xl font-bold tracking-tight mb-4">Témoignages</h2>
+  </div>
+  <div class="max-w-2xl mx-auto space-y-12">
+    <% LandingContent::DATA[:testimonials][:quotes].each do |q| %>
+      <blockquote class="text-center">
+        <p class="text-xl md:text-2xl font-medium leading-relaxed text-white/80 mb-5">&ldquo;<%= q[:text] %>&rdquo;</p>
+        <cite class="text-[#FB923C] not-italic text-sm font-semibold">— <%= q[:author] %></cite>
+      </blockquote>
+    <% end %>
+  </div>
+</section>

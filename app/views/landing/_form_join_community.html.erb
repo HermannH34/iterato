@@ -1,0 +1,65 @@
+<div id="join-community-modal" data-page-modal-target="modal" class="fixed inset-0 z-50 flex items-center justify-center p-6 hidden">
+  <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-action="click->page-modal#close"></div>
+  <div class="relative bg-zinc-900 border border-white/10 rounded-2xl p-8 max-w-lg w-full max-h-[90vh] overflow-y-auto duration-200">
+    <button data-action="click->page-modal#close" class="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    <div data-controller="contact-form" data-contact-form-type-value="join_community">
+      <div data-contact-form-target="success" class="text-center py-8 hidden">
+        <div class="w-16 h-16 rounded-full bg-[#FB923C]/10 border-2 border-[#FB923C]/30 flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-[#FB923C]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </div>
+        <h3 class="text-xl font-bold mb-2">Bien reçu</h3>
+        <p class="text-white/50">Un membre d'Iterato vous contacte sous 24h.</p>
+      </div>
+
+      <div data-contact-form-target="form">
+        <h3 class="text-xl font-bold mb-6 text-white">Rejoindre la communauté</h3>
+        <form data-action="submit->contact-form#submit" class="space-y-5">
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Prénom</label>
+            <input type="text" name="firstName" placeholder="Votre prénom" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Nom</label>
+            <input type="text" name="lastName" placeholder="Votre nom" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Email</label>
+            <input type="email" name="email" placeholder="vous@email.com" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Votre profil</label>
+            <div class="space-y-2" data-contact-form-target="profileButtons">
+              <% ['DevOps Engineer', 'SRE — Site Reliability Engineer', 'Platform Engineer'].each do |p| %>
+                <button type="button" data-action="click->contact-form#selectProfile" data-value="<%= p %>" class="w-full px-4 py-3 rounded-lg text-left text-sm border transition-colors border-white/10 bg-white/5 text-white/80 hover:border-white/20"><%= p %></button>
+              <% end %>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Niveau d'expérience</label>
+            <div class="flex gap-2" data-contact-form-target="levelButtons">
+              <% ['Junior', 'Intermédiaire', 'Senior'].each do |n| %>
+                <button type="button" data-action="click->contact-form#selectLevel" data-value="<%= n %>" class="flex-1 px-4 py-3 rounded-lg text-center border transition-colors border-white/10 bg-white/5 text-white/80 hover:border-white/20"><%= n %></button>
+              <% end %>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">Votre LinkedIn</label>
+            <input type="url" name="linkedinUrl" placeholder="https://linkedin.com/in/votre-profil" class="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-white/20 focus:outline-none focus:border-white/30 transition-colors" required>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white mb-1.5">CV</label>
+            <input type="file" name="cv" accept=".pdf,.doc,.docx,.png,.jpg" data-contact-form-target="fileInput" data-action="change->contact-form#handleFile" class="w-full text-transparent text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border file:border-white/10 file:bg-white/5 file:text-white file:text-sm file:cursor-pointer hover:file:bg-white/10 transition-colors">
+            <p data-contact-form-target="fileName" class="text-xs text-white/40 mt-1.5 hidden">
+              <svg class="w-3.5 h-3.5 inline text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span data-contact-form-target="fileNameText"></span>
+            </p>
+          </div>
+          <div data-contact-form-target="errors" class="text-red-400 text-sm space-y-1 hidden"></div>
+          <button type="submit" class="w-full py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all mt-2">Rejoindre le réseau</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
