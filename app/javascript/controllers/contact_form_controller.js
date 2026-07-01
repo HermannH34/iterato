@@ -46,21 +46,29 @@ export default class extends Controller {
       payload.cvName = file.name
     }
 
-    if (this.typeValue === "join_community") {
-      const missing = []
-      if (!payload.firstName?.trim()) missing.push("Prénom")
-      if (!payload.lastName?.trim()) missing.push("Nom")
-      if (!payload.email?.trim()) missing.push("Email")
+    const missing = []
+    if (!payload.firstName?.trim()) missing.push("Prénom")
+    if (!payload.lastName?.trim()) missing.push("Nom")
+    if (!payload.email?.trim()) missing.push("Email")
+
+    if (this.typeValue === "candidate") {
       if (!payload.profileType) missing.push("Profil")
       if (!payload.experienceLevel) missing.push("Niveau d'expérience")
       if (!payload.linkedinUrl?.trim()) missing.push("LinkedIn")
-      if (missing.length > 0) {
-        if (this.hasErrorsTarget) {
-          this.errorsTarget.classList.remove("hidden")
-          this.errorsTarget.innerHTML = missing.map(f => `<p>· ${f} est requis</p>`).join("")
-        }
-        return
+    }
+
+    if (this.typeValue === "entreprise") {
+      if (!payload.profileType) missing.push("Profil recherché")
+      if (!payload.context) missing.push("Contexte")
+      if (!payload.experienceLevel) missing.push("Niveau d'expérience")
+    }
+
+    if (missing.length > 0) {
+      if (this.hasErrorsTarget) {
+        this.errorsTarget.classList.remove("hidden")
+        this.errorsTarget.innerHTML = missing.map(f => `<p>· ${f} est requis</p>`).join("")
       }
+      return
     }
 
     if (this.hasErrorsTarget) this.errorsTarget.classList.add("hidden")

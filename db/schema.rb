@@ -10,19 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_06_28_000001) do
-  create_table "contact_requests", force: :cascade do |t|
-    t.text "context"
+ActiveRecord::Schema[8.1].define(version: 2024_06_28_000004) do
+  create_table "candidates", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "cv_data"
     t.string "cv_name"
     t.string "email", null: false
     t.string "experience_level"
     t.string "first_name", null: false
-    t.string "form_type", null: false
     t.string "last_name"
     t.string "linkedin_url"
     t.string "profile_type"
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entreprises", force: :cascade do |t|
+    t.text "context"
+    t.datetime "created_at", null: false
+    t.string "desired_profile"
+    t.string "email", null: false
+    t.string "experience_level"
+    t.string "first_name", null: false
+    t.string "last_name"
     t.datetime "updated_at", null: false
   end
 end

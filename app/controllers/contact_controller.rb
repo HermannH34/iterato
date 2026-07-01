@@ -2,7 +2,16 @@ class ContactController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    contact = ContactRequest.new(contact_params)
+    case params[:formType]
+    when "candidate"
+      contact = Candidate.new(candidate_params)
+    when "entreprise"
+      contact = Entreprise.new(entreprise_params)
+    else
+      render json: { error: "Type de formulaire inconnu" }, status: :unprocessable_entity
+      return
+    end
+
     if contact.save
       render json: { success: true }, status: :created
     else
@@ -12,9 +21,16 @@ class ContactController < ApplicationController
 
   private
 
-  def contact_params
-    params.permit(:firstName, :lastName, :email, :profileType, :context, :experienceLevel, :linkedinUrl, :cvData, :cvName, :formType).transform_keys! do |key|
-      key.to_s.underscore
-    end
+  def candidate_params
+    p = params.permit(:firstName, :lastName, :email, :profileType, :experienceLevel, :linkedinUrl, :cvData, :cvName)
+              .transform_keys! { |k| k.to_s.underscore }
+    p
+  end
+
+  def entreprise_params
+    p = params.permit(:firstName, :lastName, :email, :profileType, :context, :experienceLevel)
+              .transform_keys! { |k| k.to_s.underscore }
+    p[:desired_profile] = p.delete(:profile_type) || p.delete("profile_type")
+    p
   end
 end
