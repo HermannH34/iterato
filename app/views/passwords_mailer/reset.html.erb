@@ -1,0 +1,7 @@
+<p>
+  Vous pouvez réinitialiser votre mot de passe sur
+  <%= link_to "cette page", edit_password_url(@user.password_reset_token) %>.
+</p>
+<p>
+  Ce lien expirera dans <%= distance_of_time_in_words(0, @user.password_reset_token_expires_in) %>.
+</p>
