@@ -1,0 +1,67 @@
+<div class="border-t-2 border-sky-400"></div>
+
+<header class="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-30">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg tracking-tight">Iterato</a>
+    <div class="flex items-center gap-3">
+      <span class="text-xs text-white/30 border border-white/10 rounded-full px-3 py-1">Back-office Candidat</span>
+      <%= button_to "Déconnexion", session_path, method: :delete, class: "text-xs text-white/40 hover:text-[#FB923C] transition-colors bg-transparent border-none cursor-pointer" %>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10"
+      data-controller="card-filter">
+  <div class="flex items-center justify-between mb-8">
+    <h1 class="text-2xl font-bold tracking-tight">Candidats <span class="text-white/40 text-lg font-normal">(<%= @candidates.length %>)</span></h1>
+    <div class="flex gap-2 text-xs">
+      <button data-action="card-filter#filter" data-card-filter-type-param="all"
+              class="border border-[#FB923C]/30 text-[#FB923C] rounded-lg px-3 py-1.5 font-medium transition-colors"
+              data-card-filter-target="filter">Tous</button>
+      <button data-action="card-filter#filter" data-card-filter-type-param="DevOps Engineer"
+              class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
+              data-card-filter-target="filter">DevOps</button>
+      <button data-action="card-filter#filter" data-card-filter-type-param="SRE"
+              class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
+              data-card-filter-target="filter">SRE</button>
+      <button data-action="card-filter#filter" data-card-filter-type-param="Platform Engineer"
+              class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
+              data-card-filter-target="filter">Platform</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% @candidates.each do |c| %>
+      <div class="border border-white/10 rounded-xl p-5 hover:border-white/20 hover:bg-white/[0.02] transition-all group"
+           data-card-filter-target="card"
+           data-card-filter-profile="<%= c.profile_type %>">
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-10 h-10 rounded-full bg-[#FB923C]/20 text-[#FB923C] flex items-center justify-center font-bold text-sm">
+            <%= c.first_name[0] %><%= c.last_name[0] %>
+          </div>
+          <a href="<%= c.linkedin_url %>" target="_blank" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs opacity-0 group-hover:opacity-100">LinkedIn →</a>
+        </div>
+
+        <h3 class="font-semibold text-base mb-0.5"><%= c.first_name %> <%= c.last_name %></h3>
+        <p class="text-white/40 text-sm mb-3"><%= c.email %></p>
+
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="text-xs bg-[#FB923C]/10 text-[#FB923C] px-2 py-0.5 rounded-full"><%= c.profile_type %></span>
+          <% badge_class = case c.experience_level
+            when "Junior" then "border border-white/20 text-white/60"
+            when "Confirmé" then "text-white/60 border border-white/20"
+            when "Senior" then "text-white border border-white/30"
+            when "Lead" then "bg-white text-black font-semibold border border-white"
+            else "border border-white/20 text-white/60"
+          end %>
+          <span class="text-xs px-2 py-0.5 rounded-full <%= badge_class %>"><%= c.experience_level %></span>
+        </div>
+
+        <div class="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
+          <span class="text-white/30">Reçu le <%= c.created_at&.strftime("%d/%m/%Y") %></span>
+          <a href="<%= admin_candidate_download_cv_path(c.id) %>" class="text-white/40 hover:text-[#FB923C] transition-colors">Télécharger CV</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</main>

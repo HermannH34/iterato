@@ -11,3 +11,4 @@ gem "tailwindcss-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 gem "kamal"
+gem "bcrypt", "~> 3.1"

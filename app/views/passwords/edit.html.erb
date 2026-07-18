@@ -1,0 +1,28 @@
+<div class="min-h-[80vh] flex items-center justify-center px-6">
+  <div class="w-full max-w-sm">
+    <% if alert = flash[:alert] %>
+      <p class="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2 mb-6" id="alert"><%= alert %></p>
+    <% end %>
+
+    <h1 class="text-2xl font-bold tracking-tight mb-8">Nouveau mot de passe</h1>
+
+    <%= form_with url: password_path(params[:token]), method: :put, class: "contents" do |form| %>
+      <div class="mb-5">
+        <%= form.password_field :password, required: true, autocomplete: "new-password",
+              placeholder: "Nouveau mot de passe",
+              maxlength: 72,
+              class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors text-sm" %>
+      </div>
+
+      <div class="mb-6">
+        <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password",
+              placeholder: "Confirmer le mot de passe",
+              maxlength: 72,
+              class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors text-sm" %>
+      </div>
+
+      <%= form.submit "Enregistrer",
+            class: "w-full rounded-lg px-4 py-3 bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm cursor-pointer" %>
+    <% end %>
+  </div>
+</div>

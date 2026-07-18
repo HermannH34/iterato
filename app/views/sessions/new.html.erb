@@ -1,0 +1,24 @@
+<div style="padding: 80px 16px 0;">
+  <div style="max-width: 280px; margin: 0 auto;">
+    <% if alert = flash[:alert] %>
+      <p class="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2 mb-6" id="alert"><%= alert %></p>
+    <% end %>
+
+    <h1 class="text-xl font-bold tracking-tight mb-6 text-center">Connexion</h1>
+
+    <form action="/session" method="post">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+      <div class="mb-4">
+        <input type="email" name="email_address" placeholder="Email" required autofocus autocomplete="username"
+               class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border">
+      </div>
+      <div class="mb-5">
+        <input type="password" name="password" placeholder="Mot de passe" required autocomplete="current-password" maxlength="72"
+               class="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border">
+      </div>
+      <input type="submit" value="Se connecter"
+             class="w-full rounded-lg px-4 py-2.5 bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm cursor-pointer box-border">
+
+    </form>
+  </div>
+</div>

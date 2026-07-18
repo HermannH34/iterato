@@ -1,0 +1,25 @@
+<div class="min-h-[80vh] flex items-center justify-center px-6">
+  <div class="w-full max-w-sm">
+    <% if alert = flash[:alert] %>
+      <p class="text-sm text-red-400 bg-red-400/10 border border-red-400/20 rounded-lg px-4 py-2 mb-6" id="alert"><%= alert %></p>
+    <% end %>
+
+    <h1 class="text-2xl font-bold tracking-tight mb-8">Mot de passe oublié</h1>
+
+    <%= form_with url: passwords_path, class: "contents" do |form| %>
+      <div class="mb-6">
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username",
+              placeholder: "admin@iterato.agency",
+              value: params[:email_address],
+              class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors text-sm" %>
+      </div>
+
+      <%= form.submit "Réinitialiser le mot de passe",
+            class: "w-full rounded-lg px-4 py-3 bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm cursor-pointer" %>
+    <% end %>
+
+    <div class="mt-6 text-center text-xs">
+      <%= link_to "Retour à la connexion", new_session_path, class: "text-white/30 hover:text-white transition-colors" %>
+    </div>
+  </div>
+</div>
