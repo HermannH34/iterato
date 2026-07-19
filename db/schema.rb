@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_18_180938) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_19_175526) do
   create_table "candidates", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.text "cv_data"
     t.string "cv_name"
     t.string "email", null: false
+    t.string "entry_point", default: "community", null: false
     t.string "experience_level"
     t.string "first_name", null: false
     t.string "last_name"

@@ -23,7 +23,7 @@ class ContactController < ApplicationController
   private
 
   def candidate_params
-    p = params.permit(:firstName, :lastName, :email, :profileType, :experienceLevel, :linkedinUrl, :cvData, :cvName)
+    p = params.permit(:firstName, :lastName, :email, :profileType, :experienceLevel, :linkedinUrl, :cvData, :cvName, :entryPoint)
               .transform_keys! { |k| k.to_s.underscore }
     p
   end
