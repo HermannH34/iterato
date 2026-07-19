@@ -57,6 +57,7 @@
             </p>
           </div>
           <div data-contact-form-target="errors" class="text-red-400 text-sm space-y-1 hidden"></div>
+          <input type="hidden" name="entryPoint" value="<%= local_assigns[:entry_point] || "community" %>">
           <button type="submit" class="w-full py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all mt-2"><%= local_assigns[:button_text] || "Rejoindre le réseau" %></button>
         </form>
       </div>
