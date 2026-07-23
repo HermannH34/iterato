@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_19_175526) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_19_234200) do
   create_table "candidates", force: :cascade do |t|
+    t.datetime "confirmation_email_sent_at"
     t.datetime "created_at", null: false
     t.text "cv_data"
     t.string "cv_name"
