@@ -15,15 +15,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
   config.active_record.attributes_for_inspect = [ :id ]
 
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address: "smtp.resend.com",
-    port: 587,
-    authentication: :plain,
-    user_name: "resend",
-    password: ENV.fetch("RESEND_API_KEY"),
-    enable_starttls_auto: true
-  }
+  config.action_mailer.delivery_method = :resend
   config.action_mailer.default_url_options = { host: "iterato.agency" }
   config.action_mailer.asset_host = "https://iterato.agency"
 end

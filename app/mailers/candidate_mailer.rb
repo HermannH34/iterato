@@ -6,6 +6,6 @@ class CandidateMailer < ApplicationMailer
 
   def job_application(candidate)
     @candidate = candidate
-    mail subject: "Merci pour votre candidature", to: candidate.email
+    mail subject: "Merci pour ta candidature", to: candidate.email
   end
 end
