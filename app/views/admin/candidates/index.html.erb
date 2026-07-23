@@ -55,6 +55,11 @@
             else "border border-white/20 text-white/60"
           end %>
           <span class="text-xs px-2 py-0.5 rounded-full <%= badge_class %>"><%= c.experience_level %></span>
+          <% if c.entry_point == "job_application" %>
+            <span class="text-xs bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded-full">Offre d'emploi</span>
+          <% else %>
+            <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full">Communauté</span>
+          <% end %>
         </div>
 
         <div class="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
