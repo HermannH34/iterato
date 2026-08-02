@@ -11,7 +11,7 @@
 </header>
 
 <main class="max-w-6xl mx-auto px-6 py-10"
-      data-controller="card-filter">
+      data-controller="card-filter delete-confirm">
   <div class="flex items-center justify-between mb-8">
     <h1 class="text-2xl font-bold tracking-tight">Candidats <span class="text-white/40 text-lg font-normal">(<%= @candidates.length %>)</span></h1>
     <div class="flex gap-2 text-xs">
@@ -39,7 +39,16 @@
           <div class="w-10 h-10 rounded-full bg-[#FB923C]/20 text-[#FB923C] flex items-center justify-center font-bold text-sm">
             <%= c.first_name[0] %><%= c.last_name[0] %>
           </div>
-          <a href="<%= c.linkedin_url %>" target="_blank" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs opacity-0 group-hover:opacity-100">LinkedIn →</a>
+          <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button type="button"
+                    data-action="delete-confirm#open"
+                    data-delete-candidate-id="<%= c.id %>"
+                    data-delete-candidate-name="<%= c.first_name %> <%= c.last_name %>"
+                    class="text-white/20 hover:text-red-400 transition-colors text-xs">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+            <a href="<%= c.linkedin_url %>" target="_blank" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs">LinkedIn →</a>
+          </div>
         </div>
 
         <h3 class="font-semibold text-base mb-0.5"><%= c.first_name %> <%= c.last_name %></h3>
@@ -68,5 +77,24 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div id="delete-modal"
+       data-delete-confirm-target="modal"
+       class="fixed inset-0 z-50 flex items-center justify-center p-6 hidden">
+    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" data-action="click->delete-confirm#close"></div>
+    <div class="relative bg-zinc-900 border border-white/10 rounded-2xl p-8 max-w-md w-full">
+      <button data-action="click->delete-confirm#close" class="absolute top-4 right-4 text-white/40 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <h3 class="text-xl font-bold mb-2 text-white">Supprimer ce candidat ?</h3>
+      <p class="text-white/50 mb-6">Cette action est irréversible. Le candidat sera masqué du dashboard.</p>
+      <form data-delete-confirm-target="form" method="POST" class="flex gap-3">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <button type="button" data-action="click->delete-confirm#close" class="flex-1 py-3 rounded-lg border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-colors">Annuler</button>
+        <button type="submit" class="flex-1 py-3 rounded-lg bg-red-500 hover:bg-red-600 text-white font-semibold transition-colors">Confirmer</button>
+      </form>
+    </div>
   </div>
 </main>

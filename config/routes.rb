@@ -8,5 +8,6 @@ Rails.application.routes.draw do
 
   get "admin-candidats", to: "admin/candidates#index"
   get "admin-candidats/:id/download_cv", to: "admin/candidates#download_cv", as: :admin_candidate_download_cv
+  delete "admin-candidats/:id", to: "admin/candidates#destroy", as: :admin_candidate_destroy
 
 end

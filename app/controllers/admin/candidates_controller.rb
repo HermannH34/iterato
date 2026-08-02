@@ -1,7 +1,13 @@
 module Admin
   class CandidatesController < BaseController
     def index
-      @candidates = Candidate.order(created_at: :desc)
+      @candidates = Candidate.active.order(created_at: :desc)
+    end
+
+    def destroy
+      candidate = Candidate.find(params[:id])
+      candidate.update(deleted_at: Time.current)
+      redirect_to admin_candidats_path, notice: "Candidat supprimé"
     end
 
     def download_cv
