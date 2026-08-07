@@ -6,6 +6,7 @@ class ContactController < ApplicationController
     case params[:formType]
     when "candidate"
       contact = Candidate.new(candidate_params)
+      contact.source = "website"
     when "entreprise"
       contact = Entreprise.new(entreprise_params)
     else
