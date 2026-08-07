@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_02_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_02_230250) do
   create_table "candidates", force: :cascade do |t|
     t.datetime "confirmation_email_sent_at"
     t.datetime "created_at", null: false
@@ -24,6 +24,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_02_000000) do
     t.string "last_name"
     t.string "linkedin_url"
     t.string "profile_type"
+    t.string "source", default: "website", null: false
     t.datetime "updated_at", null: false
   end
 

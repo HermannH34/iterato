@@ -1,0 +1,29 @@
+website_community:
+  first_name: Alice
+  last_name: Dupont
+  email: alice@example.com
+  profile_type: DevOps Engineer
+  experience_level: Senior
+  linkedin_url: https://linkedin.com/in/alice
+  entry_point: community
+  source: website
+
+website_job:
+  first_name: Bob
+  last_name: Martin
+  email: bob@example.com
+  profile_type: SRE
+  experience_level: Intermédiaire
+  linkedin_url: https://linkedin.com/in/bob
+  entry_point: job_application
+  source: website
+
+manual_candidate:
+  first_name: Claire
+  last_name: Durand
+  email: claire@example.com
+  profile_type: Platform Engineer
+  experience_level: Lead
+  linkedin_url: https://linkedin.com/in/claire
+  entry_point: community
+  source: manual

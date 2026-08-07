@@ -14,6 +14,10 @@
       data-controller="card-filter delete-confirm">
   <div class="flex items-center justify-between mb-8">
     <h1 class="text-2xl font-bold tracking-tight">Candidats <span class="text-white/40 text-lg font-normal">(<%= @candidates.length %>)</span></h1>
+    <a href="<%= new_admin_candidate_path %>" class="rounded-lg px-4 py-2 bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-xs">+ Ajouter</a>
+  </div>
+
+  <div class="flex items-center gap-6 mb-6">
     <div class="flex gap-2 text-xs">
       <button data-action="card-filter#filter" data-card-filter-type-param="all"
               class="border border-[#FB923C]/30 text-[#FB923C] rounded-lg px-3 py-1.5 font-medium transition-colors"
@@ -28,18 +32,36 @@
               class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
               data-card-filter-target="filter">Platform</button>
     </div>
+    <div class="h-4 w-px bg-white/10"></div>
+    <div class="flex gap-2 text-xs">
+      <button data-action="card-filter#filterSource" data-card-filter-source-param="all"
+              class="border border-[#FB923C]/30 text-[#FB923C] rounded-lg px-3 py-1.5 font-medium transition-colors"
+              data-card-filter-target="sourceFilter">Toutes sources</button>
+      <button data-action="card-filter#filterSource" data-card-filter-source-param="website"
+              class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
+              data-card-filter-target="sourceFilter">Site web</button>
+      <button data-action="card-filter#filterSource" data-card-filter-source-param="manual"
+              class="border border-white/20 text-white/50 rounded-lg px-3 py-1.5 transition-colors hover:text-white"
+              data-card-filter-target="sourceFilter">Manuel</button>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <% @candidates.each do |c| %>
       <div class="border border-white/10 rounded-xl p-5 hover:border-white/20 hover:bg-white/[0.02] transition-all group"
            data-card-filter-target="card"
-           data-card-filter-profile="<%= c.profile_type %>">
+           data-card-filter-profile="<%= c.profile_type %>"
+           data-card-filter-source="<%= c.source %>">
         <div class="flex items-start justify-between mb-4">
           <div class="w-10 h-10 rounded-full bg-[#FB923C]/20 text-[#FB923C] flex items-center justify-center font-bold text-sm">
             <%= c.first_name[0] %><%= c.last_name[0] %>
           </div>
           <div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <% if c.manual? %>
+              <a href="<%= edit_admin_candidate_path(c) %>" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              </a>
+            <% end %>
             <button type="button"
                     data-action="delete-confirm#open"
                     data-delete-candidate-id="<%= c.id %>"
@@ -47,7 +69,9 @@
                     class="text-white/20 hover:text-red-400 transition-colors text-xs">
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
             </button>
-            <a href="<%= c.linkedin_url %>" target="_blank" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs">LinkedIn →</a>
+            <% if c.linkedin_url.present? %>
+              <a href="<%= c.linkedin_url %>" target="_blank" class="text-white/20 hover:text-[#FB923C] transition-colors text-xs">LinkedIn →</a>
+            <% end %>
           </div>
         </div>
 
@@ -55,25 +79,36 @@
         <p class="text-white/40 text-sm mb-3"><%= c.email %></p>
 
         <div class="flex flex-wrap gap-2 mb-4">
-          <span class="text-xs bg-[#FB923C]/10 text-[#FB923C] px-2 py-0.5 rounded-full"><%= c.profile_type %></span>
-          <% badge_class = case c.experience_level
-            when "Junior" then "border border-white/20 text-white/60"
-            when "Confirmé" then "text-white/60 border border-white/20"
-            when "Senior" then "text-white border border-white/30"
-            when "Lead" then "bg-white text-black font-semibold border border-white"
-            else "border border-white/20 text-white/60"
-          end %>
-          <span class="text-xs px-2 py-0.5 rounded-full <%= badge_class %>"><%= c.experience_level %></span>
+          <% if c.profile_type.present? %>
+            <span class="text-xs bg-[#FB923C]/10 text-[#FB923C] px-2 py-0.5 rounded-full"><%= c.profile_type %></span>
+          <% end %>
+          <% if c.experience_level.present? %>
+            <% badge_class = case c.experience_level
+              when "Junior" then "border border-white/20 text-white/60"
+              when "Intermédiaire" then "text-white/60 border border-white/20"
+              when "Senior" then "text-white border border-white/30"
+              when "Lead" then "bg-white text-black font-semibold border border-white"
+              else "border border-white/20 text-white/60"
+            end %>
+            <span class="text-xs px-2 py-0.5 rounded-full <%= badge_class %>"><%= c.experience_level %></span>
+          <% end %>
           <% if c.entry_point == "job_application" %>
             <span class="text-xs bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded-full">Offre d'emploi</span>
           <% else %>
             <span class="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full">Communauté</span>
           <% end %>
+          <% if c.source == "manual" %>
+            <span class="text-xs bg-violet-500/10 text-violet-400 px-2 py-0.5 rounded-full">Manuel</span>
+          <% else %>
+            <span class="text-xs bg-white/5 text-white/40 px-2 py-0.5 rounded-full">Site web</span>
+          <% end %>
         </div>
 
         <div class="pt-3 border-t border-white/5 flex items-center justify-between text-xs">
           <span class="text-white/30">Reçu le <%= c.created_at&.strftime("%d/%m/%Y") %></span>
-          <a href="<%= admin_candidate_download_cv_path(c.id) %>" class="text-white/40 hover:text-[#FB923C] transition-colors">Télécharger CV</a>
+          <% if c.cv_data.present? %>
+            <a href="<%= admin_candidate_download_cv_path(c.id) %>" class="text-white/40 hover:text-[#FB923C] transition-colors">Télécharger CV</a>
+          <% end %>
         </div>
       </div>
     <% end %>

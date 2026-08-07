@@ -1,0 +1,94 @@
+<%= form_with model: candidate, url: url, multipart: true, class: "space-y-5" do |f| %>
+  <% if candidate.errors.any? %>
+    <div class="bg-red-500/10 border border-red-500/20 rounded-lg px-4 py-3">
+      <ul class="text-sm text-red-400 space-y-1">
+        <% candidate.errors.each do |error| %>
+          <li>
+            <% if error.attribute == :email && error.type == :taken %>
+              Cet email est déjà utilisé
+            <% else %>
+              <%= error.full_message %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-xs text-white/50 mb-1.5">Prénom <span class="text-red-400">*</span></label>
+      <%= f.text_field :first_name, required: true,
+          class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border" %>
+    </div>
+    <div>
+      <label class="block text-xs text-white/50 mb-1.5">Nom <span class="text-red-400">*</span></label>
+      <%= f.text_field :last_name, required: true,
+          class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border" %>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-xs text-white/50 mb-1.5">Email <span class="text-red-400">*</span></label>
+    <%= f.email_field :email, required: true,
+        class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border" %>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="block text-xs text-white/50 mb-1.5">Profil</label>
+      <%= f.select :profile_type,
+          [["DevOps Engineer", "DevOps Engineer"], ["SRE", "SRE"], ["Platform Engineer", "Platform Engineer"]],
+          { include_blank: "—" },
+          class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#FB923C] transition-colors box-border appearance-none" %>
+    </div>
+    <div>
+      <label class="block text-xs text-white/50 mb-1.5">Expérience</label>
+      <%= f.select :experience_level,
+          [["Junior", "Junior"], ["Intermédiaire", "Intermédiaire"], ["Senior", "Senior"], ["Lead", "Lead"]],
+          { include_blank: "—" },
+          class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#FB923C] transition-colors box-border appearance-none" %>
+    </div>
+  </div>
+
+  <div>
+    <label class="block text-xs text-white/50 mb-1.5">LinkedIn</label>
+    <%= f.url_field :linkedin_url, placeholder: "https://linkedin.com/in/...",
+        class: "w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2.5 text-sm text-white placeholder:text-white/30 focus:outline-none focus:border-[#FB923C] transition-colors box-border" %>
+  </div>
+
+  <div>
+    <label class="block text-xs text-white/50 mb-1.5">CV (PDF)</label>
+    <% if candidate.persisted? && candidate.cv_data.present? %>
+      <div class="flex items-center gap-3 mb-2">
+        <a href="<%= admin_candidate_download_cv_path(candidate.id) %>" class="text-xs text-[#FB923C] hover:text-[#F97316] transition-colors">
+          <%= candidate.cv_name.presence || "CV actuel" %>
+        </a>
+        <span class="text-xs text-white/30">— cocher pour remplacer</span>
+      </div>
+    <% end %>
+    <label class="inline-block rounded-lg px-4 py-2 text-xs font-medium bg-[#FB923C]/10 text-[#FB923C] hover:bg-[#FB923C]/20 cursor-pointer transition-colors">
+      Choisir un fichier
+      <input type="file" name="cv_file" accept="application/pdf" class="hidden">
+    </label>
+  </div>
+
+  <% if candidate.persisted? %>
+    <div class="pt-3 border-t border-white/5 grid grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs text-white/30 mb-1.5">Source</label>
+        <div class="text-sm text-white/60 bg-white/5 border border-white/5 rounded-lg px-4 py-2.5"><%= candidate.source %></div>
+      </div>
+      <div>
+        <label class="block text-xs text-white/30 mb-1.5">Entry point</label>
+        <div class="text-sm text-white/60 bg-white/5 border border-white/5 rounded-lg px-4 py-2.5"><%= candidate.entry_point %></div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="flex gap-3 pt-2">
+    <a href="<%= admin_candidats_path %>" class="flex-1 text-center py-3 rounded-lg border border-white/10 text-white/60 hover:text-white hover:border-white/20 transition-colors text-sm">Annuler</a>
+    <%= f.submit submit_label,
+        class: "flex-1 py-3 rounded-lg bg-[#FB923C] hover:bg-[#F97316] text-black font-semibold transition-all text-sm cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+<div class="border-t-2 border-sky-400"></div>
+
+<header class="border-b border-white/5 bg-black/80 backdrop-blur-sm sticky top-0 z-30">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-bold text-lg tracking-tight">Iterato</a>
+    <div class="flex items-center gap-3">
+      <a href="<%= admin_candidats_path %>" class="text-xs text-white/40 hover:text-[#FB923C] transition-colors">← Retour</a>
+    </div>
+  </div>
+</header>
+
+<main class="max-w-lg mx-auto px-6 py-10">
+  <h1 class="text-2xl font-bold tracking-tight mb-8">Modifier le candidat</h1>
+  <%= render "form", candidate: @candidate, url: admin_candidate_path(@candidate), submit_label: "Enregistrer" %>
+</main>

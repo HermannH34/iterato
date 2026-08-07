@@ -1,0 +1,3 @@
+admin_user:
+  email_address: admin@iterato.fr
+  password_digest: <%= BCrypt::Password.create("password123") %>
